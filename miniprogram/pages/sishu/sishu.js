@@ -1,66 +1,63 @@
-// miniprogram/pages/sishu/sishu.js
 Page({
+  data: {
+    currentBook: '',
+		currentChapter: '',
+		chapters: [],
+    paragraphs: [],
+    fontSize: 10
+  },
 
-	/**
-	 * 页面的初始数据
-	 */
-	data: {
+  onLoad() {
+    this.setData({
+      fontSize: getApp().globalData.fontSize
+    })
+		this.tapBook({detail:{key: 'daxue'}})
+  },
 
+  tapBook(e) {
+    //点击tab
+    this.setData({
+      currentBook: e.detail.key
+    })
+		wx.showLoading({
+			mask: true,
+		})
+		const _this = this
+		this.getData(e.detail.key).then(chapters=>{
+			// console.log(chapters)
+			_this.setData({
+				chapters
+			})
+			wx.hideLoading()
+			_this.tapChapter({detail: { key: chapters[0]._id}})
+		})
+  },
+
+	tapChapter(e){
+		console.log(e.detail.key)
+		const chapter = this.data.chapters.filter(chapter=>chapter._id === e.detail.key)[0]
+		this.setData({
+			currentChapter: e.detail.key,
+			paragraphs: chapter.paragraphs ? chapter.paragraphs : chapter.paragrahs 
+		})
 	},
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad: function (options) {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {
-
-	}
+  getData(book='daxue') {
+		return new Promise((resolve, reject) => {
+			const db = getApp().globalData.db
+			db.collection('sishu').where({
+				book
+			})
+				.get({
+					success(res) {
+						// console.log(res.data)	
+						resolve(res.data)			
+					},
+					fail(err) {
+						reject(err)
+					}
+				})
+		})
+    
+  }
 })

@@ -1,1 +1,15 @@
 /* miniprogram/pages/sishu/sishu.wxss */
+.chapter{
+	padding: 50rpx;
+	color: #495060;
+}
+
+.hor {
+  display: flex;
+  flex-direction: row;
+  width: 600rpx;
+}
+
+.tab{
+	padding: 0 20rpx;
+}

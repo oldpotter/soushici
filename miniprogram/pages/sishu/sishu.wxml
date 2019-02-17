@@ -1,2 +1,15 @@
 <!--miniprogram/pages/sishu/sishu.wxml-->
-<text>miniprogram/pages/sishu/sishu.wxml</text>
+<i-tabs current="{{ currentBook }}" bindchange="tapBook">
+  <i-tab key="daxue" title="大学"></i-tab>
+  <i-tab key="zhongyong" title="中庸"></i-tab>
+  <i-tab key="mengzi" title="孟子"></i-tab>
+  <i-tab key="lunyu" title="论语"></i-tab>
+</i-tabs>
+<i-tabs scroll current='{{ currentChapter }}' bindchange='tapChapter' i-class='tabs'>
+  <block wx:for='{{ chapters }}' wx:key='iteme._id'>
+    <i-tab key='{{item._id}}' title='{{ item.chapter }}' i-class='tab'></i-tab>
+  </block>
+</i-tabs>
+<block wx:for='{{ paragraphs }}' wx:key='*this'>
+  <view class='chapter' style='font-size:{{ fontSize }}px;'>{{ item }}</view>
+</block>
