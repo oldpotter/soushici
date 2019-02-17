@@ -1,6 +1,6 @@
 /* miniprogram/pages/sishu/sishu.wxss */
 .chapter{
-	padding: 50rpx;
+	padding: 20rpx 50rpx;
 	color: #495060;
 }
 

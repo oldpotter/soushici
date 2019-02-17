@@ -34,7 +34,7 @@ Page({
   },
 
 	tapChapter(e){
-		console.log(e.detail.key)
+		// console.log(e.detail.key)
 		const chapter = this.data.chapters.filter(chapter=>chapter._id === e.detail.key)[0]
 		this.setData({
 			currentChapter: e.detail.key,
