@@ -1,0 +1,9 @@
+/* miniprogram/pages/content/content.wxss */
+@import '/style/color.wxss';
+.center{
+	text-align: center;
+}
+
+.title{
+	margin-top: 20rpx;
+}

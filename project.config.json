@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -37,9 +37,24 @@
 					"query": ""
 				},
 				{
+					"id": 1,
+					"name": "shici",
+					"pathName": "pages/shici/shici",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "debug",
-					"pathName": "pages/debug/index",
+					"name": "search",
+					"pathName": "pages/search/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "test",
+					"pathName": "pages/test/test",
+					"query": "",
 					"scene": null
 				}
 			]

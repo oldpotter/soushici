@@ -1,0 +1,32 @@
+var getLabel = function(item) {
+  if (item.description) return item.description.slice(0, 40) + '...'
+  if (item.desc) return item.desc.slice(0, 40) + '...'
+  if (item.paragraphs) return item.paragraphs[0]
+}
+
+var getTitle = function(item) {
+  return item.title || item.rhythmic || item.name
+}
+
+
+var getType = function(item) {
+  if (item.name) return "作者";
+  if (item.title) return "诗";
+  if (item.rhythmic) return "词";
+}
+
+var getUrl = function(item) {
+  if (item.name) {
+		return "/pages/author/author?item=" + JSON.stringify(item)
+  }
+	if (item.title || item.rhythmic) {
+		return "/pages/content/content?item=" + JSON.stringify(item);
+  }
+}
+
+module.exports = {
+  getLabel: getLabel,
+  getTitle: getTitle,
+  getType: getType,
+  getUrl: getUrl
+}

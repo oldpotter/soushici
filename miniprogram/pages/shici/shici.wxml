@@ -1,2 +1,17 @@
 <!--miniprogram/pages/shici/shici.wxml-->
-<text>miniprogram/pages/shici/shici.wxml</text>
+<kl-search holder="搜索" static url='../search/search' />
+<i-tabs current='{{ currentList }}' bindchange='tapTab'>
+  <i-tab key='shi' title='诗'></i-tab>
+  <i-tab key='ci' title='词'></i-tab>
+  <i-tab key='author' title='作者'></i-tab>
+  <i-tab key='sc' title='收藏'></i-tab>
+  <i-tab key='rm' title='热门'></i-tab>
+</i-tabs>
+<i-cell-group>
+  <block wx:for='{{list}}' wx:key='item._id'>
+    <i-cell title='{{m.getTitle(item)}}' value='{{ item.author }}' label='{{ m.getLabel(item) }}' is-link url='{{ m.getUrl(item) }}'>
+    </i-cell>
+  </block>
+</i-cell-group>
+<i-load-more tip='{{tip}}' loading='{{loading}}' />
+<wxs src='../../wxs/shici.wxs' module='m' />

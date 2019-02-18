@@ -1,7 +1,11 @@
 {
 	"pages": [
+		"pages/shici/shici",
 		"pages/sishu/sishu",
-		"pages/shici/shici"
+		"pages/search/search",
+		"pages/test/test",
+		"pages/author/author",
+		"pages/content/content"
 	],
 	"window": {
 		"backgroundColor": "#F6F6F6",
@@ -11,18 +15,20 @@
 		"navigationBarTextStyle": "black"
 	},
 	"tabBar": {
+		"selectedColor": "#2d8cf0",
+		"color": "#80848f",
 		"list": [
-			{
-				"pagePath": "pages/sishu/sishu",
-				"text": "四书",
-				"selectedIconPath": "images/shan-on.png",
-				"iconPath": "images/shan-off.png"
-			},
 			{
 				"pagePath": "pages/shici/shici",
 				"text": "诗词",
 				"selectedIconPath": "images/yun-on.png",
 				"iconPath": "images/yun-off.png"
+			},
+			{
+				"pagePath": "pages/sishu/sishu",
+				"text": "四书",
+				"selectedIconPath": "images/shan-on.png",
+				"iconPath": "images/shan-off.png"
 			}
 		]
 	},

@@ -1,0 +1,5 @@
+/* miniprogram/pages/author/author.wxss */
+.desc{
+	margin: 20rpx 50rpx;
+	color:#495060;
+}

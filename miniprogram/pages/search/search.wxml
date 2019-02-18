@@ -1,0 +1,14 @@
+<!--miniprogram/pages/search/search.wxml-->
+<kl-search holder="搜索作者、诗词" focus bind:klsearch='doSearch' />
+<i-cell-group>
+  <block wx:for='{{list}}' wx:key='item.id'>
+    <i-cell title='{{ m.getTitle(item) }}' label='{{ m.getLabel(item) }}'is-link url='{{ m.getUrl(item) }}' >
+      <view slot='footer' style='color: #5cadff'>{{ m.getType(item) }}</view>
+    </i-cell>
+  </block>
+</i-cell-group>
+<view hidden='{{list.length == 0}}'>
+  <i-divider content=' · '></i-divider>
+</view>
+
+<wxs src='../../wxs/shici.wxs' module='m' />
