@@ -1,22 +1,22 @@
 <!--miniprogram/pages/content/content.wxml-->
-<view style='padding: 10rpx 50rpx; text-align: center;' class='title'>
+<view style='padding: 10rpx 50rpx;'>
   <view class='primary' style='text-align: start'>正文</view>
   <i-row>
     <i-col offset='1' span='22'>
-      <view style='font-size: {{ fontSize }}px; margin-bottom: 20rpx;'>{{ m.getTitle(item)}}</view>
+      <view class='title' style='font-size: {{ fontSize }}px; margin 10rpx 0; text-align: center;'>{{ m.getTitle(item)}}</view>
     </i-col>
   </i-row>
   <view wx:for='{{ item.paragraphs }}' wx:key='*this' wx:for-item='paragraph'>
     <i-row>
-      <i-col offset='1' span='22'>
-        <view style='font-size: {{ fontSize }}px'>{{ paragraph }}</view>
+      <i-col offset='{{ m.getOffset(item) }}' span='24'>
+        <text selectable class='content' style='font-size: {{ fontSize }}px; text-align: {{ m.getTextalign(item) }};'>{{ paragraph }}</text>
       </i-col>
     </i-row>
   </view>
   <view class='light-primary' style='text-align: start;margin: 50rpx 0;'>作者</view>
   <i-row>
     <i-col offset='1' span='22'>
-      <view style='font-size: {{ fontSize }}px; margin-bottom: 20rpx;'>{{ author.description || author.desc}}</view>
+      <view class='content' style='font-size: {{ fontSize }}px; margin-bottom: 20rpx;'>{{ author.description || author.desc}}</view>
     </i-col>
   </i-row>
 </view>

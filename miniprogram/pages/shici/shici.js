@@ -11,7 +11,7 @@ Page({
   onLoad() {
     this.tapTab({
       detail: {
-        key: 'shi'
+        key: 'author'
       }
     })
   },

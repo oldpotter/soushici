@@ -10,6 +10,7 @@ Page({
       item: JSON.parse(e.item),
       fontSize: getApp().globalData.fontSize
     })
+		console.log(this.data.item)
     const _this = this
     const db = getApp().globalData.db
     db.collection('author').where({

@@ -13,3 +13,7 @@
 .content{
 	color: #495060;
 }
+
+.line-height{
+	line-height: 1.5em;
+}

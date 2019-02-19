@@ -24,9 +24,22 @@ var getUrl = function(item) {
   }
 }
 
+var getTextalign = function(item){
+	if (item.title) return "center";
+	if (item.rhythmic) return "start";
+}
+
+
+var getOffset = function(item){
+	if (item.title) return "0";
+	if (item.rhythmic) return "4";
+}
+
 module.exports = {
   getLabel: getLabel,
   getTitle: getTitle,
   getType: getType,
-  getUrl: getUrl
+  getUrl: getUrl,
+	getTextalign: getTextalign,
+	getOffset: getOffset
 }

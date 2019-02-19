@@ -1,4 +1,6 @@
 /* miniprogram/pages/sishu/sishu.wxss */
+@import "/style/style.wxss";
+
 .chapter{
 	padding: 20rpx 50rpx;
 	color: #495060;
@@ -13,3 +15,4 @@
 .tab{
 	padding: 0 20rpx;
 }
+

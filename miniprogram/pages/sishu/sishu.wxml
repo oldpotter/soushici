@@ -13,5 +13,5 @@
   </i-tabs>
 </block>
 <block wx:for='{{ paragraphs }}' wx:key='*this'>
-  <view class='chapter' style='font-size:{{ fontSize }}px;'>{{ item }}</view>
+  <view class='chapter line-height' style='font-size:{{ fontSize }}px;'>{{ item }}</view>
 </block>
