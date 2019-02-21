@@ -1,4 +1,4 @@
-const limit = 5;
+const limit = 20;
 Page({
   data: {
     list: []
@@ -6,7 +6,7 @@ Page({
 
   doSearch(e) {
     const _this = this
-    const keyword = e.detail.value.trim()
+    let keyword = e.detail.value.trim()
     if (keyword.length == 0) {
       return
     }
@@ -16,38 +16,123 @@ Page({
     //搜索'shi'、'ci'、'author'
     const db = getApp().globalData.db
     const _ = db.command
-
     new Promise((resolve, reject) => {
-        db.collection('author').limit(limit).where(_.or({
-            name: {
-              $regex: '.*' + keyword
-            }
-          }, {
-            desc: {
-              $regex: '.*' + keyword
-            }
-          }, {
-            description: {
-              $regex: '.*' + keyword
-            }
-          }))
-          .get({
-            success(res) {
-              resolve(res)
-            },
-            fail(err) {
-              reject(err)
-            },
-          })
+        wx.cloud.callFunction({ //转简体
+          name: 'simplebig',
+          data: {
+            type: 't2s',
+            str: keyword
+          },
+          success(res) {
+            resolve(res.result)
+          }
+        })
       })
       .then(res => {
-        // console.log('搜索author:')
-        // console.log(res)
+        keyword = res
+        console.log('keyword:', res)
+        return new Promise((resolve, reject) => {
+          db.collection('ci_author').limit(limit).where(_.or({
+              name: {
+                $regex: '.*' + keyword
+              }
+            }, {
+              description: {
+                $regex: '.*' + keyword
+              }
+            }))
+            .get({
+              success(res) {
+                resolve(res)
+                console.log('ci_author:', res.data)
+              },
+              fail(err) {
+                reject(err)
+              },
+            })
+        })
+      })
+      .then(res => {
         _this.setData({
           list: res.data
         })
+
         return new Promise((resolve, reject) => {
-					db.collection('shi').limit(limit).where(_.or({
+          db.collection('ci').limit(limit).where(_.or({
+              author: {
+                $regex: '.*' + keyword
+              },
+              paragraphs: {
+                $regex: '.*' + keyword
+              },
+              rhythmic: {
+                $regex: '.*' + keyword
+              }
+            }))
+            .get({
+              success(res) {
+                resolve(res)
+                console.log('ci:', res.data)
+              },
+              fail(err) {
+                reject(err)
+              },
+            })
+        })
+      })
+      .then(res => {
+        let list = _this.data.list
+        list = list.concat(res.data)
+        _this.setData({
+          list
+        })
+        //转繁体
+        return new Promise((resolve, reject) => {
+          wx.cloud.callFunction({ //转繁体
+            name: 'simplebig',
+            data: {
+              type: 's2t',
+              str: keyword
+            },
+            success(res) {
+              resolve(res.result)
+            }
+          })
+        })
+      })
+      .then(res => {
+        keyword = res //搜索诗作者
+        console.log('keyword:', res)
+        return new Promise((resolve, reject) => {
+          db.collection('shi_author').limit(limit).where(_.or({
+              name: {
+                $regex: '.*' + keyword
+              }
+            }, {
+              desc: {
+                $regex: '.*' + keyword
+              }
+            }))
+            .get({
+              success(res) {
+                resolve(res)
+                console.log('shi_author:', res.data)
+              },
+              fail(err) {
+                reject(err)
+              },
+            })
+        })
+      })
+      .then(res => {
+        let list = _this.data.list
+        list = list.concat(res.data)
+        _this.setData({
+          list
+        })
+        //搜索诗
+        return new Promise((resolve, reject) => {
+          db.collection('shi').limit(limit).where(_.or({
               title: {
                 $regex: '.*' + keyword
               }
@@ -55,48 +140,24 @@ Page({
               paragraphs: {
                 $regex: '.*' + keyword
               }
-            }))
-            .get({
-              success(res) {
-                resolve(res)
-              },
-              fail(err) {
-                reject(err)
-              },
-            })
-        })
-      })
-      .then(res => {
-        // console.log('搜索shi:')
-        // console.log(res)
-        let list = _this.data.list
-        list = list.concat(res.data)
-        _this.setData({
-          list
-        })
-        return new Promise((resolve, reject) => {
-					db.collection('ci').limit(limit).where(_.or({
-              rhythmic: {
-                $regex: '.*' + keyword
-              }
             }, {
-              paragraphs: {
+              author: {
                 $regex: '.*' + keyword
               }
             }))
             .get({
               success(res) {
                 resolve(res)
+                console.log('shi:', res.data)
               },
               fail(err) {
                 reject(err)
               },
             })
+
         })
       })
       .then(res => {
-        // console.log('搜索ci:')
-        // console.log(res)
         let list = _this.data.list
         list = list.concat(res.data)
         _this.setData({
@@ -108,13 +169,13 @@ Page({
               keyword,
               date: db.serverDate()
             },
-						success(){
-							resolve()
-						}
+            success() {
+              resolve()
+            }
           })
         })
       })
-      .then(() => {
+      .then(res => {
         wx.hideLoading()
       })
 

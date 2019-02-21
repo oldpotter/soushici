@@ -1,3 +1,4 @@
+const moment = require('moment')
 Page({
   data: {
     currentBook: '',
@@ -18,7 +19,30 @@ Page({
     })
   },
 
+	onShow() {
+		this.start = moment()
+	},
+
+	onHide() {
+		this.uploadDuration()
+	},
+
+	uploadDuration(){
+		this.duration = moment() - this.start
+		this.start = moment()
+		const db = getApp().globalData.db
+		const _this = this
+		db.collection('duration').add({
+			data: {
+				duration: _this.duration,
+				page: 'sishu',
+				tab: _this.data.currentBook
+			}
+		})
+	},
+
   tapBook(e) {
+		this.uploadDuration()
     //点击tab
     this.setData({
       currentBook: e.detail.key

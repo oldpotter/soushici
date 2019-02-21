@@ -9,13 +9,13 @@
   <view wx:for='{{ item.paragraphs }}' wx:key='*this' wx:for-item='paragraph'>
     <i-row>
       <i-col offset='{{ m.getOffset(item) }}' span='24'>
-        <text selectable class='content' style='font-size: {{ fontSize }}px; text-align: {{ m.getTextalign(item) }};'>{{ paragraph }}</text>
+        <view selectable class='content' style='font-size: {{ fontSize }}px; text-align: {{ m.getTextalign(item) }};'>{{ paragraph }}</view>
       </i-col>
     </i-row>
   </view>
   <view class='light-primary' style='text-align: start;margin: 50rpx 0;'>作者</view>
   <i-row>
-    <i-col offset='1' span='22'>
+    <i-col offset='0' span='24'>
       <view class='content' style='font-size: {{ fontSize }}px; margin-bottom: 20rpx;'>{{ author.description || author.desc}}</view>
     </i-col>
   </i-row>

@@ -1,4 +1,5 @@
 const limit = 10
+const moment = require('moment')
 Page({
   data: {
     currentList: '1',
@@ -12,6 +13,23 @@ Page({
     this.tapTab({
       detail: {
         key: 'author'
+      }
+    })
+  },
+
+  onShow() {
+    this.start = moment()
+  },
+
+  onHide() {
+    this.duration = moment() - this.start
+    const db = getApp().globalData.db
+    const _this = this
+    db.collection('duration').add({
+      data: {
+        duration: _this.duration,
+				page: 'shici',
+				tab: _this.data.currentList
       }
     })
   },
@@ -39,23 +57,27 @@ Page({
 
 
   tapTab(e) {
-		const _this = this
+    const _this = this
     if (e.detail.key == 'sc' || e.detail.key == 'rm') {
-			wx.showToast({
-				title: '该功能维护中',
-				icon: 'fail',
-				image: '',
-				duration: 50000,
-				mask: true,
-				success: function(res) {},
-				fail: function(res) {},
-				complete: function(res) {},
-			})
-			setTimeout(()=>{
-				wx.hideToast()
-				_this.tapTab({detail:{key: 'shi'}})
-			}, 1000)
-			return
+      wx.showToast({
+        title: '该功能维护中',
+        icon: 'fail',
+        image: '',
+        duration: 50000,
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+      setTimeout(() => {
+        wx.hideToast()
+        _this.tapTab({
+          detail: {
+            key: 'shi'
+          }
+        })
+      }, 1000)
+      return
     }
     this.setData({
       currentList: e.detail.key
