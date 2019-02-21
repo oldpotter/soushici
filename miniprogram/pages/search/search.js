@@ -30,7 +30,7 @@ Page({
       })
       .then(res => {
         keyword = res
-        console.log('keyword:', res)
+        // console.log('keyword:', res)
         return new Promise((resolve, reject) => {
           db.collection('ci_author').limit(limit).where(_.or({
               name: {
@@ -44,7 +44,7 @@ Page({
             .get({
               success(res) {
                 resolve(res)
-                console.log('ci_author:', res.data)
+                // console.log('ci_author:', res.data)
               },
               fail(err) {
                 reject(err)
@@ -72,7 +72,7 @@ Page({
             .get({
               success(res) {
                 resolve(res)
-                console.log('ci:', res.data)
+                // console.log('ci:', res.data)
               },
               fail(err) {
                 reject(err)
@@ -102,7 +102,7 @@ Page({
       })
       .then(res => {
         keyword = res //搜索诗作者
-        console.log('keyword:', res)
+        // console.log('keyword:', res)
         return new Promise((resolve, reject) => {
           db.collection('shi_author').limit(limit).where(_.or({
               name: {
@@ -116,7 +116,7 @@ Page({
             .get({
               success(res) {
                 resolve(res)
-                console.log('shi_author:', res.data)
+                // console.log('shi_author:', res.data)
               },
               fail(err) {
                 reject(err)
@@ -148,7 +148,7 @@ Page({
             .get({
               success(res) {
                 resolve(res)
-                console.log('shi:', res.data)
+                // console.log('shi:', res.data)
               },
               fail(err) {
                 reject(err)
