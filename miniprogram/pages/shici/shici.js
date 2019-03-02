@@ -28,8 +28,8 @@ Page({
     db.collection('duration').add({
       data: {
         duration: _this.duration,
-				page: 'shici',
-				tab: _this.data.currentList
+        page: 'shici',
+        tab: _this.data.currentList
       }
     })
   },
@@ -58,7 +58,7 @@ Page({
 
   tapTab(e) {
     const _this = this
-    if (e.detail.key == 'sc' || e.detail.key == 'rm') {
+    if (e.detail.key == 'rm') {
       wx.showToast({
         title: '该功能维护中',
         icon: 'fail',
@@ -94,6 +94,16 @@ Page({
 
   },
 
+  _getCollect(db, collection, id) {
+    return new Promise((resolve, reject) => {
+      db.collection(collection).doc(id).get({
+        success(res) {
+          resolve(res.data)
+        }
+      })
+    })
+  },
+
   getList(skip = 0, collection = 'shi') {
     const _this = this
     const db = getApp().globalData.db
@@ -104,7 +114,18 @@ Page({
           .skip(skip)
           .get({
             success(res) {
-              resolve(res.data)
+              if (collection == 'collect') {
+								let tasks = []
+								res.data.forEach(item => {
+									let p = _this._getCollect(db, item.type, item.id)
+									tasks.push(p)
+								})
+								Promise.all(tasks).then(res => {
+									resolve(res)
+								})
+              } else {
+                resolve(res.data)
+              }
             },
           })
       } else {
@@ -112,7 +133,18 @@ Page({
           .limit(limit)
           .get({
             success(res) {
-              resolve(res.data)
+              if (collection == 'collect') {
+                let tasks = []
+                res.data.forEach(item => {
+                  let p = _this._getCollect(db, item.type, item.id)
+                  tasks.push(p)
+                })
+                Promise.all(tasks).then(res => {
+                	resolve(res)
+                })
+              } else {
+                resolve(res.data)
+              }
             },
           })
       }

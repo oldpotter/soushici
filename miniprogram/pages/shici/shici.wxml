@@ -5,7 +5,7 @@
   <i-tab key='ci' title='词'></i-tab>
   <i-tab key='shi_author' title='诗作者'></i-tab>
   <i-tab key='ci_author' title='词作者'></i-tab>
-  <i-tab key='sc' title='收藏'></i-tab>
+  <i-tab key='collect' title='收藏'></i-tab>
   <i-tab key='rm' title='热门'></i-tab>
 </i-tabs>
 <i-cell-group>

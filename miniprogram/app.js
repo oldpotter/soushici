@@ -1,6 +1,4 @@
 //app.js
-import {debug} from './config.js';
-
 App({
   onLaunch: function () {
     
@@ -9,7 +7,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
-				env: debug ? 'dev-e8c6ba' : 'prod-e8c6ba'
+				env: 'dev-e8c6ba'//目前统一使用dev后台
       })
     }
 		const _this = this
