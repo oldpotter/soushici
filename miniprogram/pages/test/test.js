@@ -1,21 +1,23 @@
+const Promise = require('../../utils/bluebird.min.js')
 Page({
-
-  onLoad() {
-		let tasks = []
-		let arr = [1, 2, 3, 4]
-		arr.forEach(num=>{
-			let p = this.test(1)
-			tasks.push(p)
-			console.log(tasks)
+	onLoad(){
+		Promise.config({
+			// Enable cancellation
+			cancellation: true
 		})
-  },
+	},
 
-  test(num) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-				console.log(num)
-				resolve()
-			}, num*1000)
-    })
-  }
+	click(){
+		if(this.p) this.p.cancel()
+		this.p = this.test()
+		this.p.then(res=>console.log(res))
+	},
+
+	test(){
+		return new Promise((resolve, reject) => {
+			this.time = setTimeout(() => {
+				resolve('haha')
+			}, 2000)
+		})
+	}
 })

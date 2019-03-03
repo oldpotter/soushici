@@ -1,10 +1,19 @@
 const limit = 20;
+const Promise = require('../../utils/bluebird.min.js')
 Page({
   data: {
     list: []
   },
 
+	onLoad(){
+		Promise.config({
+			// Enable cancellation
+			cancellation: true
+		})
+	},
+
   doSearch(e) {
+		if (this.p) this.p.cancel()
     const _this = this
     let keyword = e.detail.value.trim()
     if (keyword.length == 0) {
@@ -16,7 +25,7 @@ Page({
     //搜索'shi'、'ci'、'author'
     const db = getApp().globalData.db
     const _ = db.command
-    new Promise((resolve, reject) => {
+    this.p =  new Promise((resolve, reject) => {
         wx.cloud.callFunction({ //转简体
           name: 'simplebig',
           data: {
